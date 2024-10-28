@@ -1,46 +1,42 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Popover from '@mui/material/Popover';
-import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import ColorModeIconDropdown from '../assets/icons/ColorModeIconDropdown';
-import { NavData } from '../data/Nav-Data';
+import { styled, alpha } from "@mui/material/styles";
+import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Container from "@mui/material/Container";
+import Popover from "@mui/material/Popover";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import ColorModeIconDropdown from "../assets/icons/ColorModeIconDropdown";
+import { NavData } from "../data/Nav-Data";
+import { Fragment, useState } from "react";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexShrink: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
     borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
-    backdropFilter: 'blur(24px)',
-    border: '1px solid',
+    backdropFilter: "blur(24px)",
+    border: "1px solid",
     borderColor: (theme.vars || theme).palette.divider,
     backgroundColor: theme.vars
-        ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.4)`
-        : alpha(theme.palette.background.default, 0.4),
-    boxShadow: (theme.vars || theme).shadows[1],
-    padding: '8px 12px',
+        ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.6)`
+        : alpha(theme.palette.background.default, 0.6),
+    boxShadow: theme.shadows[1],
+    padding: "8px 16px",
 }));
 
-const navbarData = NavData;
-
-export default function Navbar() {
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [currentSubLinks, setCurrentSubLinks] = React.useState([]);
+const Navbar = () => {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [currentSubLinks, setCurrentSubLinks] = useState([]);
     let closeTimeout;
 
     const handlePopoverOpen = (event, subLinks) => {
-        clearTimeout(closeTimeout); // Clear any closing timer
+        clearTimeout(closeTimeout);
         setAnchorEl(event.currentTarget);
         setCurrentSubLinks(subLinks);
     };
@@ -49,7 +45,7 @@ export default function Navbar() {
         closeTimeout = setTimeout(() => {
             setAnchorEl(null);
             setCurrentSubLinks([]);
-        }, 150); // Delay to allow smooth transition
+        }, 100); // Delay for smoother transitions
     };
 
     const toggleDrawer = (open) => () => {
@@ -61,51 +57,78 @@ export default function Navbar() {
             position="fixed"
             sx={{
                 boxShadow: 0,
-                bgcolor: 'transparent',
-                backgroundImage: 'none',
-                mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+                bgcolor: "transparent",
+                mt: "calc(var(--template-frame-height, 0px) + 28px)",
             }}
         >
             <Container maxWidth="lg">
-                <StyledToolbar variant="dense" disableGutters>
-                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-                        <img src="./favicon-32.png" alt="Logo" />
-
-                        {/* Desktop links */}
-                        <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 2 }}>
-                            {navbarData.map((link) => (
-                                <Button
-                                    key={link.title}
-                                    onMouseEnter={(event) => handlePopoverOpen(event, link.subLinks)}
-                                    onMouseLeave={handlePopoverClose}
-                                    color="info"
-                                    variant="text"
-                                    size="small"
+                <StyledToolbar disableGutters>
+                    <div className="flex text-gray-900 cursor-pointer relative p-3">
+                        {NavData.map((link) => (
+                            <Box
+                                key={link.title}
+                                sx={{
+                                    position: "relative",
+                                    p: 2,
+                                    mx: 1,
+                                    // bgcolor: "deeppink",
+                                    "&:hover .dropdownContent": { display: "block" },
+                                }}
+                            >
+                                <div>{link.title}</div>
+                                <Box
+                                    className="dropdownContent"
+                                    sx={{
+                                        display: "none",
+                                        position: "absolute",
+                                        top: "100%",
+                                        left: 0,
+                                        backgroundColor: "background.paper",
+                                        borderRadius: 1,
+                                        boxShadow: 1,
+                                        py: 1,
+                                        zIndex: 10,
+                                        "&:hover .dropdownContent": { display: "block" },
+                                    }}
                                 >
-                                    {link.title}
-                                </Button>
-                            ))}
-                        </Box>
-                    </Box>
+                                    {link.subLinks.map((subLink) => (
+                                        <MenuItem
+                                            key={subLink.title}
+                                            component={Link}
+                                            to={subLink.url}
+                                            sx={{ px: 2 }}
+                                        >
+                                            {subLink.title}
+                                        </MenuItem>
+                                    ))}
+                                </Box>
+                            </Box>
+                        ))}
+                    </div>
 
-                    {/* Authentication and Color Mode Icons */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
+                    <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
                         <ColorModeIconDropdown />
                     </Box>
 
-                    {/* Drawer for Mobile */}
-                    <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
+                    <IconButton
+                        edge="end"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={toggleDrawer(true)}
+                        sx={{ display: { md: "none" } }}
+                    >
                         <MenuIcon />
                     </IconButton>
+
                     <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)}>
-                        <Box sx={{ p: 2 }}>
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Box sx={{ p: 2, width: "100%", bgcolor: "background.paper" }}>
+                            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                                 <IconButton onClick={toggleDrawer(false)}>
                                     <CloseRoundedIcon />
                                 </IconButton>
                             </Box>
-                            {navbarData.map((link) => (
-                                <React.Fragment key={link.title}>
+                            {NavData.map((link) => (
+                                <Fragment key={link.title}>
                                     <MenuItem onClick={(event) => handlePopoverOpen(event, link.subLinks)}>
                                         {link.title}
                                     </MenuItem>
@@ -120,20 +143,31 @@ export default function Navbar() {
                                             {subLink.title}
                                         </MenuItem>
                                     ))}
-                                </React.Fragment>
+                                </Fragment>
                             ))}
                         </Box>
                     </Drawer>
 
-                    {/* Popover for Dropdown Menu */}
                     <Popover
                         open={Boolean(anchorEl)}
                         anchorEl={anchorEl}
                         onClose={handlePopoverClose}
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-                        onMouseEnter={() => clearTimeout(closeTimeout)} // Prevent closing when entering popover
-                        onMouseLeave={handlePopoverClose} // Close when leaving popover
+                        anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "left",
+                        }}
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "left",
+                        }}
+                        sx={{
+                            ".MuiPopover-paper": {
+                                borderRadius: 2,
+                                p: 1,
+                                mt: 1,
+                                boxShadow: 3,
+                            },
+                        }}
                     >
                         <Box sx={{ p: 1 }}>
                             {currentSubLinks.map((subLink) => (
@@ -152,4 +186,6 @@ export default function Navbar() {
             </Container>
         </AppBar>
     );
-}
+};
+
+export default Navbar;
