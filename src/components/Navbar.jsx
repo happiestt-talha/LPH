@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import ColorModeIconDropdown from "../assets/icons/ColorModeIconDropdown";
+// import ColorModeIconDropdown from "../assets/icons/ColorModeIconDropdown";
 import { NavData } from "../data/Nav-Data";
 import { Fragment, useState } from "react";
 
@@ -62,126 +62,148 @@ const Navbar = () => {
             }}
         >
             <Container maxWidth="lg">
+                {/* <Container> */}
                 <StyledToolbar disableGutters>
-                    <div className="flex text-gray-900 cursor-pointer relative p-3">
-                        {NavData.map((link) => (
-                            <Box
-                                key={link.title}
-                                sx={{
-                                    position: "relative",
-                                    p: 2,
-                                    mx: 1,
-                                    // bgcolor: "deeppink",
-                                    "&:hover .dropdownContent": { display: "block" },
-                                }}
-                            >
-                                <div>{link.title}</div>
+                    <div className="flex items-center">
+
+                        <Link to="/">
+                            <span>
+                                <img src="/favicon-32.png" alt="logo" />
+                            </span>
+                        </Link>
+
+                        <div className="flex text-gray-900 cursor-pointer relative p-3">
+                            {NavData.map((link) => (
                                 <Box
-                                    className="dropdownContent"
+                                    key={link.title}
                                     sx={{
-                                        display: "none",
-                                        position: "absolute",
-                                        top: "100%",
-                                        left: 0,
-                                        backgroundColor: "background.paper",
-                                        borderRadius: 1,
-                                        boxShadow: 1,
-                                        py: 1,
-                                        zIndex: 10,
+                                        position: "relative",
+                                        p: 2,
+                                        mx: 1,
+                                        // bgcolor: "deeppink",
                                         "&:hover .dropdownContent": { display: "block" },
                                     }}
                                 >
-                                    {link.subLinks.map((subLink) => (
-                                        <MenuItem
-                                            key={subLink.title}
-                                            component={Link}
-                                            to={subLink.url}
-                                            sx={{ px: 2 }}
-                                        >
-                                            {subLink.title}
-                                        </MenuItem>
-                                    ))}
+                                    <div>{link.title}</div>
+                                    <Box
+                                        className="dropdownContent"
+                                        sx={{
+                                            display: "none",
+                                            position: "absolute",
+                                            top: "100%",
+                                            left: 0,
+                                            backgroundColor: "background.paper",
+                                            borderRadius: 1,
+                                            boxShadow: 1,
+                                            py: 1,
+                                            zIndex: 10,
+                                            "&:hover .dropdownContent": { display: "block" },
+                                        }}
+                                    >
+                                        {link.subLinks.map((subLink) => (
+                                            <MenuItem
+                                                key={subLink.title}
+                                                component={Link}
+                                                to={subLink.url}
+                                                sx={{ px: 2 }}
+                                            >
+                                                {subLink.title}
+                                            </MenuItem>
+                                        ))}
+                                    </Box>
                                 </Box>
-                            </Box>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
 
-                    <Box sx={{ display: { xs: "none", md: "flex" }, gap: 1 }}>
-                        <ColorModeIconDropdown />
-                    </Box>
+                        {/* <Box sx={{ display: { xs: "none", md: "flex" }, justifySelf: "flex-end", gap: 1 }}>
+                            <ColorModeIconDropdown />
+                        </Box> */}
 
-                    <IconButton
-                        edge="end"
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={toggleDrawer(true)}
-                        sx={{ display: { md: "none" } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                        <IconButton
+                            edge="end"
+                            color="inherit"
+                            aria-label="menu"
+                            onClick={toggleDrawer(true)}
+                            sx={{ display: { md: "none" } }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
 
-                    <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)}>
-                        <Box sx={{ p: 2, width: "100%", bgcolor: "background.paper" }}>
-                            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                                <IconButton onClick={toggleDrawer(false)}>
-                                    <CloseRoundedIcon />
-                                </IconButton>
-                            </Box>
-                            {NavData.map((link) => (
-                                <Fragment key={link.title}>
-                                    <MenuItem onClick={(event) => handlePopoverOpen(event, link.subLinks)}>
-                                        {link.title}
-                                    </MenuItem>
-                                    {link.subLinks.map((subLink) => (
-                                        <MenuItem
-                                            component={Link}
-                                            to={subLink.url}
-                                            key={subLink.title}
-                                            onClick={toggleDrawer(false)}
-                                            sx={{ pl: 4 }}
-                                        >
-                                            {subLink.title}
+                        <Drawer anchor="top" open={drawerOpen} onClose={toggleDrawer(false)}>
+                            <Box sx={{ p: 2, width: "100%", bgcolor: "background.paper" }}>
+                                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                                    <IconButton onClick={toggleDrawer(false)}>
+                                        <CloseRoundedIcon />
+                                    </IconButton>
+                                </Box>
+                                {NavData.map((link) => (
+                                    <Fragment key={link.title}>
+                                        <MenuItem onClick={(event) => handlePopoverOpen(event, link.subLinks)}>
+                                            {link.title}
                                         </MenuItem>
-                                    ))}
-                                </Fragment>
-                            ))}
-                        </Box>
-                    </Drawer>
+                                        {link.subLinks?.length > 0
+                                            ? link.subLinks?.map((subLink) => (
+                                                <MenuItem
+                                                    component={Link}
+                                                    to={subLink.url}
+                                                    key={subLink.title}
+                                                    onClick={toggleDrawer(false)}
+                                                    sx={{ pl: 4 }}
+                                                >
+                                                    {subLink.title}
+                                                </MenuItem>
+                                            ))
+                                            // : null
+                                            : <MenuItem
+                                                component={Link}
+                                                to={link.url}
+                                                key={link.title}
+                                                onClick={toggleDrawer(false)}
+                                                sx={{ pl: 4 }}
+                                            >
+                                                {link.title}
+                                            </MenuItem>
+                                        }
+                                    </Fragment>
+                                ))}
+                            </Box>
+                        </Drawer>
 
-                    <Popover
-                        open={Boolean(anchorEl)}
-                        anchorEl={anchorEl}
-                        onClose={handlePopoverClose}
-                        anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left",
-                        }}
-                        transformOrigin={{
-                            vertical: "top",
-                            horizontal: "left",
-                        }}
-                        sx={{
-                            ".MuiPopover-paper": {
-                                borderRadius: 2,
-                                p: 1,
-                                mt: 1,
-                                boxShadow: 3,
-                            },
-                        }}
-                    >
-                        <Box sx={{ p: 1 }}>
-                            {currentSubLinks.map((subLink) => (
-                                <MenuItem
-                                    component={Link}
-                                    to={subLink.url}
-                                    key={subLink.title}
-                                    onClick={handlePopoverClose}
-                                >
-                                    {subLink.title}
-                                </MenuItem>
-                            ))}
-                        </Box>
-                    </Popover>
+                        <Popover
+                            open={Boolean(anchorEl)}
+                            anchorEl={anchorEl}
+                            onClose={handlePopoverClose}
+                            anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "left",
+                            }}
+                            transformOrigin={{
+                                vertical: "top",
+                                horizontal: "left",
+                            }}
+                            sx={{
+                                ".MuiPopover-paper": {
+                                    borderRadius: 2,
+                                    p: 1,
+                                    mt: 1,
+                                    boxShadow: 3,
+                                },
+                            }}
+                        >
+                            <Box sx={{ p: 1 }}>
+                                {currentSubLinks.map((subLink) => (
+                                    <MenuItem
+                                        component={Link}
+                                        to={subLink.url}
+                                        key={subLink.title}
+                                        onClick={handlePopoverClose}
+                                    >
+                                        {subLink.title}
+                                    </MenuItem>
+                                ))}
+                            </Box>
+                        </Popover>
+                    </div>
                 </StyledToolbar>
             </Container>
         </AppBar>

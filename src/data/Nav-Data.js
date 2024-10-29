@@ -57,6 +57,11 @@
 
 export const NavData = [
     {
+        "title": "Home",
+        "subLinks": [],
+        "url": "/"
+    },
+    {
         "title": "IT Hardware Solutions",
         "subLinks": [
             { "title": "Retail Solutions", "url": "/it-hardware-solutions/retail-solutions" },
@@ -74,5 +79,20 @@ export const NavData = [
             { "title": "Support Services", "url": "/it-soft-solutions/support-services" },
             { "title": "Cybersecurity", "url": "/it-soft-solutions/cybersecurity" }
         ]
+    },
+    {
+        "title": "Gallery",
+        "subLinks": [],
+        "url": "/gallery"
+    },
+    {
+        "title": "Contact",
+        "subLinks": [],
+        "url": "/contact"
+    },
+    {
+        "title": "About Us",
+        "subLinks": [],
+        "url": "/about-us"
     }
 ];

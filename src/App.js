@@ -21,6 +21,7 @@ function App() {
 
           <Route exact path="/it-hardware-solutions/:slug" element={<HardSolutions />} />
           <Route exact path="/it-soft-solutions/:slug" element={<SoftSolutions />} />
+          
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/about-us" element={<About />} />
           <Route exact path="/gallery" element={<Gallery />} />
