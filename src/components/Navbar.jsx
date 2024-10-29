@@ -105,7 +105,17 @@ const Navbar = () => {
                                                 key={subLink.title}
                                                 component={Link}
                                                 to={subLink.url}
-                                                sx={{ px: 2 }}
+                                                sx={{
+                                                    px: 2,
+                                                    "&:hover ": {
+                                                        backgroundColor: "#f5f5f5",
+                                                        color: "#2e7d32",
+                                                        // transform: "translateX(2px)",
+                                                        paddingLeft: "24px",
+                                                        transition: "all 0.3s ease",
+                                                    },
+                                                }}
+
                                             >
                                                 {subLink.title}
                                             </MenuItem>
