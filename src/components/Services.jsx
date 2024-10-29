@@ -10,14 +10,14 @@ const services = [
 
 const Services = () => {
     return (
-        <section className="services py-20 text-center bg-gray-900">
+        <section className="services py-20 h-3/4 text-center bg-gray-900">
             <h2 className="text-4xl font-bold text-green-500 mb-10">Our Services</h2>
             <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
                 {services.map((service, index) => (
                     <motion.div
                         key={index}
                         className="bg-gray-800 p-5 rounded-lg"
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
                         whileTap={{ scale: 0.95 }}
                     >
                         <img src={service.image} alt={service.title} className="w-full h-40 object-cover mb-5 rounded" />

@@ -79,7 +79,17 @@ export const NavData = [
             { "title": "Support Services", "url": "/it-soft-solutions/support-services" },
             { "title": "Cybersecurity", "url": "/it-soft-solutions/cybersecurity" }
         ]
-    }
+    },
+    {
+        title: "About Us",
+        url: "/about-us",
+        subLinks: [],
+    },
+    {
+        title: "Contact",
+        url: "/contact",
+        subLinks: [],
+    },
 ];
 
 export const mandatoryLinks = [

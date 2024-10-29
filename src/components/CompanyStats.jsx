@@ -32,43 +32,45 @@ const CompanyStats = () => {
     }, [inView]);
 
     return (
-        <Box ref={ref} sx={{ py: 8, textAlign: 'center', backgroundColor: '#1f2937' }} >
-            <Typography variant="h4" gutterBottom>Company Stats</Typography>
-            <Grid container spacing={4} justifyContent="center">
-                {stats.map((stat, index) => (
-                    <Grid item xs={12} sm={6} md={3} key={stat.label}>
-                        <Box position="relative" display="inline-flex">
-                            <CircularProgress
-                                variant="determinate"
-                                value={progressValues[index]}
-                                size={120}
-                                thickness={4}
-                                sx={{
-                                    color: '#4CAF50',
-                                    transition: 'value 2s ease',
-                                }}
-                            />
-                            <Box
-                                top={0}
-                                left={0}
-                                bottom={0}
-                                right={0}
-                                position="absolute"
-                                display="flex"
-                                alignItems="center"
-                                justifyContent="center"
-                            >
-                                <Typography variant="h6" component="div" color="">
-                                    {progressValues[index]}%
-                                </Typography>
+        <Box sx={{ height: '80vh', backgroundColor: '#1f2937', textAlign: 'center', py: 8, }}>
+            <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#4CAF50' }}>Company Stats</Typography>
+            <Box ref={ref} sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }} >
+                <Grid container spacing={4} justifyContent="center">
+                    {stats.map((stat, index) => (
+                        <Grid item xs={12} sm={6} md={3} key={stat.label}>
+                            <Box position="relative" display="inline-flex">
+                                <CircularProgress
+                                    variant="determinate"
+                                    value={progressValues[index]}
+                                    size={220}
+                                    thickness={4}
+                                    sx={{
+                                        color: '#4CAF50',
+                                        transition: 'value 2s ease',
+                                    }}
+                                />
+                                <Box
+                                    top={0}
+                                    left={0}
+                                    bottom={0}
+                                    right={0}
+                                    position="absolute"
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                >
+                                    <Typography variant="h6" component="div" color="">
+                                        {progressValues[index]}%
+                                    </Typography>
+                                </Box>
                             </Box>
-                        </Box>
-                        <Typography variant="body1" mt={2} >
-                            {stat.label}
-                        </Typography>
-                    </Grid>
-                ))}
-            </Grid>
+                            <Typography variant="body1" mt={2} >
+                                {stat.label}
+                            </Typography>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
         </Box>
     );
 };

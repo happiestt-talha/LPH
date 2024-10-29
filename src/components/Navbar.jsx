@@ -148,11 +148,16 @@ const Navbar = () => {
                                 </Box>
                                 {NavData.map((link) => (
                                     <Fragment key={link.title}>
-                                        <MenuItem onClick={(event) => handlePopoverOpen(event, link.subLinks)}>
+                                        <MenuItem
+                                            component={Link}
+                                            to={link.url || "#"} // Ensure 'to' points to link.url if available
+                                            onClick={(event) => handlePopoverOpen(event, link.subLinks)}
+                                        >
                                             {link.title}
                                         </MenuItem>
+                                        {/* If link has subLinks, render them as dropdown items */}
                                         {link.subLinks?.length > 0
-                                            ? link.subLinks?.map((subLink) => (
+                                            ? link.subLinks.map((subLink) => (
                                                 <MenuItem
                                                     component={Link}
                                                     to={subLink.url}
@@ -163,19 +168,11 @@ const Navbar = () => {
                                                     {subLink.title}
                                                 </MenuItem>
                                             ))
-                                            // : null
-                                            : <MenuItem
-                                                component={Link}
-                                                to={link.url}
-                                                key={link.title}
-                                                onClick={toggleDrawer(false)}
-                                                sx={{ pl: 4 }}
-                                            >
-                                                {link.title}
-                                            </MenuItem>
+                                            : null
                                         }
                                     </Fragment>
                                 ))}
+
                             </Box>
                         </Drawer>
 
