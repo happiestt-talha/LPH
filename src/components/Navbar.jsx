@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 // import ColorModeIconDropdown from "../assets/icons/ColorModeIconDropdown";
-import { NavData } from "../data/Nav-Data";
+import { NavData } from "../data/Links-Data";
 import { Fragment, useState } from "react";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({

@@ -1,0 +1,36 @@
+/* App.css */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero .animate-fadeIn {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.stats .animate-fadeInUp {
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.testimonials .animate-fadeIn {
+    animation: fadeIn 1.2s ease-in-out;
+}
