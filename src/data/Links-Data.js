@@ -55,7 +55,7 @@ export const FooterData = [
     }
 ]
 
-export const NavData = [
+export const NavData = [ 
     {
         "title": "Home",
         "subLinks": [],
