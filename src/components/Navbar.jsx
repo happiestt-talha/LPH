@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 // import ColorModeIconDropdown from "../assets/icons/ColorModeIconDropdown";
-import { NavData } from "../data/Links-Data";
+import { mandatoryLinks, NavData } from "../data/Links-Data";
 import { Fragment, useState } from "react";
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -26,7 +26,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
         ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.6)`
         : alpha(theme.palette.background.default, 0.6),
     boxShadow: theme.shadows[1],
-    padding: "8px 16px",
+    padding: "5px 6px",
 }));
 
 const Navbar = () => {
@@ -71,8 +71,8 @@ const Navbar = () => {
                                 <img src="/favicon-32.png" alt="logo" />
                             </span>
                         </Link>
-
-                        <div className="flex text-gray-900 cursor-pointer relative p-3">
+                        <div className="flex text-gray-900 cursor-pointer relative items-center p-3">
+                            <Link to="/" className="text-gray-900 cursor-pointer ">Home</Link>
                             {NavData.map((link) => (
                                 <Box
                                     key={link.title}
@@ -100,29 +100,54 @@ const Navbar = () => {
                                             "&:hover .dropdownContent": { display: "block" },
                                         }}
                                     >
-                                        {link.subLinks.map((subLink) => (
-                                            <MenuItem
-                                                key={subLink.title}
-                                                component={Link}
-                                                to={subLink.url}
-                                                sx={{
-                                                    px: 2,
-                                                    "&:hover ": {
-                                                        backgroundColor: "#f5f5f5",
-                                                        color: "#2e7d32",
-                                                        // transform: "translateX(2px)",
-                                                        paddingLeft: "24px",
-                                                        transition: "all 0.3s ease",
-                                                    },
-                                                }}
+                                        <>
+                                            {link.subLinks.map((subLink) => (
+                                                <MenuItem
+                                                    key={subLink.title}
+                                                    component={Link}
+                                                    to={subLink.url}
+                                                    sx={{
+                                                        px: 2,
+                                                        "&:hover ": {
+                                                            backgroundColor: "#f5f5f5",
+                                                            color: "#2e7d32",
+                                                            // transform: "translateX(2px)",
+                                                            paddingLeft: "24px",
+                                                            transition: "all 0.3s ease",
+                                                        },
+                                                    }}
 
-                                            >
-                                                {subLink.title}
-                                            </MenuItem>
-                                        ))}
+                                                >
+                                                    {subLink.title}
+                                                </MenuItem>
+                                            ))}
+
+
+                                        </>
                                     </Box>
+
                                 </Box>
                             ))}
+                            {
+                                mandatoryLinks.map((subLink) => (
+                                    <MenuItem
+                                        key={subLink.title}
+                                        component={Link}
+                                        to={subLink.url}
+                                        sx={{
+                                            px: 2,
+                                            "&:hover ": {
+                                                // backgroundColor: "#f5f5f5",
+                                                color: "#2e7d32",
+                                                transition: "all 0.3s ease",
+                                            },
+                                        }}
+
+                                    >
+                                        {subLink.title}
+                                    </MenuItem>
+                                ))
+                            }
                         </div>
 
                         {/* <Box sx={{ display: { xs: "none", md: "flex" }, justifySelf: "flex-end", gap: 1 }}>
